@@ -1,7 +1,7 @@
 user_login:
     pattern:   /
-    defaults: { _controller: @UserBundle:Default:login }
+    defaults: { _controller: UserBundle:Default:login }
 
 user_logout:
     pattern:   /logout
-    defaults: { _controller: @UserBundle:Default:logout }
+    defaults: { _controller: UserBundle:Default:logout }
