@@ -9,6 +9,11 @@ use Symfony\Component\Security\Core\Security;
 class DefaultController extends Controller
 {
 
+    public function indexAction(Request $request)
+    {
+        echo 'u R in';
+    }
+
     public function loginAction(Request $request)
     {
         $session = $request->getSession();
