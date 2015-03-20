@@ -8,6 +8,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+
+/**
+ * @ORM\Entity(repositoryClass="cmh\UserBundle\Entity\User")
+ * @ORM\Table(name="user")
+ */
 class User
 {
     /**

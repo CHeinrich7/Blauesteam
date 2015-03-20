@@ -16,18 +16,18 @@ $routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
 
 <?php $slotsHelper->start('content') ?>
     <div class="container">
-        <form class="form-horizontal" action="<?php echo $routerHelper->generate('user_check'); ?>">
+        <form class="form-horizontal" action="<?php echo $routerHelper->generate('user_check'); ?>" method="post">
             <div class="form-group">
                 <label for="username" class="col-sm-offset-3 col-sm-2 control-label">Username</label>
                 <div class="col-sm-3">
-                    <input id="username" type="text" class="form-control" name="username" autocomplete="off" />
+                    <input id="username" type="text" class="form-control" name="_username" autocomplete="off" placeholder="Username" />
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="username" class="col-sm-offset-3 col-sm-2 control-label">Passwort</label>
+                <label for="password" class="col-sm-offset-3 col-sm-2 control-label">Passwort</label>
                 <div class="col-sm-3">
-                    <input id="password" type="password" class="form-control" name="password" autocomplete="off" />
+                    <input id="password" type="password" class="form-control" name="_password" autocomplete="off" placeholder="Passwort" />
                 </div>
             </div>
 

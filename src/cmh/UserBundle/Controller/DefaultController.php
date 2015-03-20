@@ -42,11 +42,4 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('user_login'));
     }
 
-    public function loginProcess(Request $request)
-    {
-        $session = $session = $request->getSession();
-        $session->invalidate(0);
-        return $this->redirect($this->generateUrl('user_login'));
-    }
-
 }

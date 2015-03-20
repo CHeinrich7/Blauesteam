@@ -9,7 +9,10 @@ use Symfony\Component\Validator\Constraints;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use cmh\UserBundle\Entity\User;
 
-
+/**
+ * @ORM\Entity(repositoryClass="cmh\UserBundle\Entity\Profile")
+ * @ORM\Table(name="userprofile")
+ */
 class Profile
 {
     /**

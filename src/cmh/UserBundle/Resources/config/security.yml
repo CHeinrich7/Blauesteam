@@ -1,6 +1,6 @@
 security:
     encoders:
-        S7\Core\UserBundle\Entity\User:
+        UserBundle\Entity\User:
             algorithm:        sha512
             encode_as_base64: true
 

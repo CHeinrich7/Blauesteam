@@ -1,13 +1,13 @@
 <?php
 
-namespace UserBundle\Services\Security;
+namespace cmh\UserBundle\Services\Security;
 
 
 use Symfony\Component\Security\Http\Authorization\AccessDeniedHandlerInterface;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 
 class AccessDeniedHandler implements AccessDeniedHandlerInterface{
 
