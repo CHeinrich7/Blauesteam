@@ -9,6 +9,11 @@ use Symfony\Component\Security\Core\Security;
 class DefaultController extends Controller
 {
 
+    public function indexAction(Request $request)
+    {
+        echo 'u R in';
+    }
+
     public function loginAction(Request $request)
     {
         $session = $request->getSession();
@@ -31,6 +36,13 @@ class DefaultController extends Controller
     }
 
     public function logoutAction(Request $request)
+    {
+        $session = $session = $request->getSession();
+        $session->invalidate(0);
+        return $this->redirect($this->generateUrl('user_login'));
+    }
+
+    public function loginProcess(Request $request)
     {
         $session = $session = $request->getSession();
         $session->invalidate(0);

@@ -9,7 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <title>Blauesteam - <?php $slotsHelper->output('title') ?></title>
+        <title><?php $slotsHelper->output('title') ?> - Blauesteam</title>
 
         <link href="/css/bootstrap.min.css" rel="stylesheet">
         <?php $slotsHelper->output('styles', ''); ?>
@@ -17,8 +17,11 @@
         <script type="text/javascript"></script>
     </head>
     <body>
-
-    <?php $slotsHelper->output('head', ''); ?>
+    <div class="container">
+        <div class="page-header">
+            <?php $slotsHelper->output('header', ''); ?>
+        </div>
+    </div>
 
     <?php $slotsHelper->output('content', ''); ?>
 
