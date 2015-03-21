@@ -2,6 +2,7 @@
 namespace cmh\UserBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
+//use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
@@ -13,9 +14,11 @@ abstract class UserDataLoader extends AbstractFixture {
      */
     protected function fillEntity($entity, $data)
     {
+//        $cout = new ConsoleOutput();
         foreach($data as $key => $val)
         {
             if(method_exists($entity, 'set'.$key)) {
+//                $cout->writeln('set'.$key.'( '.print_r($val, true).' )');
                 $entity->{'set'.$key}($val);
             }
         }
@@ -26,7 +29,7 @@ abstract class UserDataLoader extends AbstractFixture {
      *
      * @return string|false
      */
-    public function getFileContent($filename)
+    protected function getFileContent($filename)
     {
         $finder = new Finder();
 

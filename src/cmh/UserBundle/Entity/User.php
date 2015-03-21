@@ -5,12 +5,14 @@ namespace cmh\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints;
-use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
  * @ORM\Entity(repositoryClass="cmh\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="user")
+ *
+ * @UniqueEntity(fields="role", message="There can not be one Role twice in Database!")
  */
 class User implements UserInterface
 {

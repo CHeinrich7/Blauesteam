@@ -2,66 +2,68 @@
 
 namespace cmh\UserBundle\DataFixtures\ORM;
 
-
-use cmh\UserBundle\Entity\Profile;
-use cmh\UserBundle\Entity\User;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
-use Symfony\Component\DependencyInjection\Container;
+
+use cmh\UserBundle\Entity\Profile;
+use cmh\UserBundle\Entity\User;
+use cmh\UserBundle\Entity\Role;
 
 /**
- * Class LoadUserBaseData
+ * Class LoadUserDummyData
  * @package cmh\UserBundle\DataFixtures\ORM
  */
-class LoadUserBaseData extends UserDataLoader implements OrderedFixtureInterface, ContainerAwareInterface {
+class LoadUserDummyData extends LoadUserBaseData implements OrderedFixtureInterface, ContainerAwareInterface {
 
     /**
      * @var string
      */
-    protected $filename = 'users.json';
-
-    /**
-     * @var Container
-     */
-    protected $container;
-
-    /**
-     * @param ContainerInterface|null $container
-     */
-    public function setContainer ( ContainerInterface $container = null )
-    {
-        $this->container = $container;
-    }
-
+    protected $filename = 'dummyUsers.json';
 
     protected function getRole($entityData)
     {
-        $rolename = $entityData->Role;
-
         $em = $this->container->get('doctrine.orm.default_entity_manager');
 
         $repo = $em->getRepository('UserBundle:Role');
 
-        $entityData->Role = $repo->findOneBy(array('role' => $rolename));
+        $entityData->Role = $repo->findOneBy(array('role' => Role::ROLE_STAFF));
     }
 
-    /**
-     * @param string        $content
-     * @param ObjectManager $objectManager
-     */
     protected function loadUsers($content, ObjectManager $objectManager)
     {
         $users = json_decode($content);
+
+        foreach($users as $user) {
+            $this->loadUser($user, $objectManager);
+        }
+    }
+
+    protected function setUserPasswort(\stdClass $user, User $entityUser)
+    {
+        $factory = $this->container->get('security.encoder_factory');
+
+        $encoder = $factory->getEncoder($entityUser);
+        $user->Salt = md5(time());
+        $user->Password = $encoder->encodePassword('test', $user->Salt);
+    }
+
+    /**
+     * @param \stdClass     $user
+     * @param ObjectManager $objectManager
+     */
+    protected function loadUser($user, ObjectManager $objectManager)
+    {
         $entityProfile = new Profile();
         $entityUser = new User();
 
-        foreach($users as $entityName => $entityData)
+        $this->setUserPasswort($user->user, $entityUser);
+
+        foreach($user as $entityName => $entityData)
         {
             switch($entityName) {
                 case 'profile':
@@ -103,6 +105,6 @@ class LoadUserBaseData extends UserDataLoader implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-        return 2; // the order in which fixtures will be loaded
+        return 3; // the order in which fixtures will be loaded
     }
 } 
