@@ -6,6 +6,7 @@ $slotsHelper = $view['slots']; /* @var $slotsHelper SlotsHelper */
 $routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
 
 /* @var $error AuthenticationServiceException */
+/* @var $info array */
 ?>
 
 <?php $view->extend('::base.html.php') ?>
@@ -20,13 +21,22 @@ $routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
 <?php $slotsHelper->start('content') ?>
     <div class="container">
         <?php if($error): ?>
-        <div class="row">
-            <div class="col-sm-offset-3 col-sm-6">
-                <div class="alert alert-danger">
-                    <?php echo $error->getMessage(); ?>
+            <div class="row">
+                <div class="col-sm-offset-3 col-sm-6">
+                    <div class="alert alert-danger">
+                        <?php echo $error->getMessage(); ?>
+                    </div>
                 </div>
             </div>
-        </div>
+        <?php endif; ?>
+        <?php if(isset($info['username'])): ?>
+            <div class="row">
+                <div class="col-sm-offset-3 col-sm-6">
+                    <div class="alert alert-info">
+                        <p>Danke, dass du dich ausgeloggt hast.<br /><br />Vielleicht sehen wir uns bald mal wieder, <b><?php echo $info['username']; ?></b></p>
+                    </div>
+                </div>
+            </div>
         <?php endif; ?>
         <form class="form-horizontal" action="<?php echo $routerHelper->generate('user_check'); ?>" method="post">
             <div class="form-group">

@@ -7,6 +7,12 @@ security:
     access_decision_manager:
         strategy: unanimous
 
+    role_hierarchy:
+        ROLE_STAFF:       [ROLE_APPLICANT]
+        ROLE_CHARGER:     [ROLE_STAFF]
+        ROLE_ADMIN:       [ROLE_CHARGER]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN]
+
     providers:
         administrators:
             entity: { class: UserBundle:User }
@@ -29,4 +35,6 @@ security:
                     b: { path: null, domain: null }
 
     access_control:
-        - { path: ^/in, roles: [ ROLE_ADMIN ] }
+        - { path: ^/in,               roles: [ ROLE_APPLICANT ] }
+#        - { path: ^/in/staffcontrol,  roles: [ ROLE_CHARGER ] }
+#        - { path: ^/in/admin,         roles: [ ROLE_ADMIN ] }

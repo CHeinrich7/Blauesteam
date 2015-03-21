@@ -3,9 +3,9 @@
 namespace cmh\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
@@ -71,10 +71,17 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToOne(targetEntity="Profile", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(referencedColumnName="id")
      * @Constraints\Valid
      */
     private $profile;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Role", cascade={"persist"})
+     * @ORM\JoinColumn(referencedColumnName="role")
+     * @Constraints\Valid
+     * @var Role
+     */
+    private $role;
 
     /**
      * @param integer $id
@@ -283,8 +290,19 @@ class User implements UserInterface
      */
     public function getRoles ()
     {
-        $rol = new Role('ROLE_ADMIN');
+        $rol = new Role($this->role);
         return array($rol);
+    }
+
+    /**
+     * @param Role $role
+     *
+     * @return User
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+        return $this;
     }
 
     /**

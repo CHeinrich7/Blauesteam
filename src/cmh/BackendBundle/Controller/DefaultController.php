@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class DefaultController extends Controller
 {
     /**
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Security("has_role('ROLE_STAFF')")
      */
     public function indexAction()
     {
