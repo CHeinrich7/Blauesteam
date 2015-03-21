@@ -3,17 +3,17 @@
 namespace cmh\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
  * @ORM\Entity(repositoryClass="cmh\UserBundle\Entity\User")
+ * @ORM\Entity(repositoryClass="cmh\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="user")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Column(type="integer")
@@ -30,10 +30,16 @@ class User
     private $username;
 
     /**
+     * @ORM\Column(type="string", length=32, nullable = false)
+     */
+    private $salt = null;
+
+    /**
      * algorithm: sha512
      * encode_as_base64: true
      *
-     * @ORM\Column(type="string", length=128)
+     * @ORM\Column(type="string", length=128, nullable = false)
+     * @Constraints\Length(min = "5")
      * @Constraints\NotBlank()
      */
     private $password;
@@ -41,27 +47,27 @@ class User
     /**
      * @ORM\Column(name="is_superuser", type="boolean", options={"default"=0})
      */
-    private $isSuperUser;
+    private $isSuperUser = false;
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
      */
-    private $isActive;
+    private $isActive  = true;
 
     /**
      * @ORM\Column(name="is_deleted", type="boolean")
      */
-    private $isDeleted;
+    private $isDeleted = false;
 
     /**
      * @ORM\Column(name="is_deletable", type="boolean")
      */
-    private $isDeletable;
+    private $isDeletable = true;
 
     /**
      * @var string
      */
-    private $plainPassword;
+    private $plainPassword = null;
 
     /**
      * @ORM\OneToOne(targetEntity="Profile", cascade={"persist", "remove"})
@@ -166,6 +172,24 @@ class User
     }
 
     /**
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * @param string $salt
+     *
+     * @return User
+     */
+    public function setSalt($salt)
+    {
+        return $this->salt = $salt;
+    }
+
+    /**
      * @param string $password
      *
      * @return User
@@ -240,4 +264,37 @@ class User
     {
         return $this->username;
     }
-} 
+
+    /**
+     * Returns the roles granted to the user.
+     *
+     * <code>
+     * public function getRoles()
+     * {
+     *     return array('ROLE_USER');
+     * }
+     * </code>
+     *
+     * Alternatively, the roles might be stored on a ``roles`` property,
+     * and populated in any number of different ways when the user object
+     * is created.
+     *
+     * @return Role[] The user roles
+     */
+    public function getRoles ()
+    {
+        $rol = new Role('ROLE_ADMIN');
+        return array($rol);
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials ()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+}

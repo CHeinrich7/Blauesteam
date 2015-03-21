@@ -3,11 +3,7 @@
 namespace cmh\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use cmh\UserBundle\Entity\User;
 
 /**
  * @ORM\Entity(repositoryClass="cmh\UserBundle\Entity\Profile")
@@ -27,13 +23,13 @@ class Profile
      * @ORM\Column(name="is_active", type="boolean")
      * @var boolean
      */
-    private $isActive;
+    private $isActive = true;
 
     /**
      * @ORM\Column(name="is_deleted", type="boolean")
      * @var boolean
      */
-    private $isDeleted;
+    private $isDeleted = false;
 
     /**
      * @ORM\OneToOne(targetEntity="User", cascade={"persist", "remove"})
@@ -44,7 +40,7 @@ class Profile
     private $user;
 
     /**
-     * @ORM\Column(type="string", length=60)
+     * @ORM\Column(type="string", length=50, nullable = false)
      * @Constraints\NotBlank()
      * @Constraints\Email()
      * @var string
@@ -52,21 +48,28 @@ class Profile
     private $email;
 
     /**
+     * @ORM\Column(type="string", length=50, nullable = false)
+     * @Constraints\NotBlank()
      * @var string
      */
     private $number;
 
     /**
+     * @ORM\Column(type="string", length=50, nullable = true)
      * @var string
      */
-    private $number2;
+    private $number2  = null;
 
     /**
+     * @ORM\Column(type="string", length=50)
+     * @Constraints\NotBlank()
      * @var string
      */
     private $firstname;
 
     /**
+     * @ORM\Column(type="string", length=50)
+     * @Constraints\NotBlank()
      * @var string
      */
     private $lastname;
@@ -75,7 +78,7 @@ class Profile
      * @ORM\Column(name="show_mail", type="boolean", options={"default"=0})
      * @var boolean
      */
-    private $showMail;
+    private $showMail = false;
 
     /**
      * @param string $email

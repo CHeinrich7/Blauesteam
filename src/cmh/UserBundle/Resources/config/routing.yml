@@ -1,14 +1,10 @@
 user_login:
-    path:     /
+    path:     /login
     defaults: { _controller: UserBundle:Default:login }
 
 user_check:
     path:  /user_check
 
 user_logout:
-    path:     /logout
+    path:     /
     defaults: { _controller: UserBundle:Default:logout }
-
-user_in:
-    path:     /in
-    defaults: { _controller: UserBundle:Default:index }

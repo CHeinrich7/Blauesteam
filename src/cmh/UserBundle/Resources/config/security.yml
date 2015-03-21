@@ -1,6 +1,6 @@
 security:
     encoders:
-        UserBundle\Entity\User:
+        cmh\UserBundle\Entity\User:
             algorithm:        sha512
             encode_as_base64: true
 
@@ -13,7 +13,6 @@ security:
 
     firewalls:
         admin_area:
-            #pattern:    ^/admin
             pattern:    ^/
             anonymous: ~
             form_login:
@@ -30,4 +29,4 @@ security:
                     b: { path: null, domain: null }
 
     access_control:
-        - { path: ^/in, roles: [ PERMISSION_BACKEND ] }
+        - { path: ^/in, roles: [ ROLE_ADMIN ] }
