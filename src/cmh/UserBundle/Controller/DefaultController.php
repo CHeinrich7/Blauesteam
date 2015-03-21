@@ -4,34 +4,20 @@ namespace cmh\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class DefaultController extends Controller
 {
 
-    public function indexAction(Request $request)
+    public function loginAction()
     {
-        echo 'u R in';
-    }
-
-    public function loginAction(Request $request)
-    {
-        $session = $request->getSession();
-
-        // get the login error if there is one
-        if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(
-                Security::AUTHENTICATION_ERROR
-            );
-        } else {
-            $error = $session->get(Security::AUTHENTICATION_ERROR);
-            $session->remove(Security::AUTHENTICATION_ERROR);
-        }
+        /* @var $helper AuthenticationUtils */
+        $helper = $this->get('security.authentication_utils');
 
         return $this->render('UserBundle:Default:Login.html.php', array(
             // last username entered by the user
-            'last_username' => $session->get(Security::LAST_USERNAME),
-            'error'         => $error,
+            'last_username' => $helper->getLastUsername(),
+            'error'         => $helper->getLastAuthenticationError(),
         ));
     }
 

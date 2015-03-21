@@ -1,8 +1,11 @@
 <?php
 use Symfony\Component\Templating\Helper\SlotsHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
+use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
 $slotsHelper = $view['slots']; /* @var $slotsHelper SlotsHelper */
 $routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
+
+/* @var $error AuthenticationServiceException */
 ?>
 
 <?php $view->extend('::base.html.php') ?>
@@ -16,6 +19,15 @@ $routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
 
 <?php $slotsHelper->start('content') ?>
     <div class="container">
+        <?php if($error): ?>
+        <div class="row">
+            <div class="col-sm-offset-3 col-sm-6">
+                <div class="alert alert-danger">
+                    <?php echo $error->getMessage(); ?>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
         <form class="form-horizontal" action="<?php echo $routerHelper->generate('user_check'); ?>" method="post">
             <div class="form-group">
                 <label for="username" class="col-sm-offset-3 col-sm-2 control-label">Username</label>

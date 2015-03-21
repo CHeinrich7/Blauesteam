@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-
 class AccessDeniedHandler implements AccessDeniedHandlerInterface{
 
     public function handle(Request $request, AccessDeniedException $accessDeniedException){
