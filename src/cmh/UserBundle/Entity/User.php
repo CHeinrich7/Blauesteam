@@ -19,19 +19,19 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=25)
      * @Constraints\NotBlank()
      * @Constraints\Length(min = "5")
      */
-    private $username;
+    protected $username;
 
     /**
      * @ORM\Column(type="string", length=32, nullable = false)
      */
-    private $salt = null;
+    protected $salt = null;
 
     /**
      * algorithm: sha512
@@ -41,38 +41,38 @@ class User implements UserInterface
      * @Constraints\Length(min = "5")
      * @Constraints\NotBlank()
      */
-    private $password;
+    protected $password;
 
     /**
      * @ORM\Column(name="is_superuser", type="boolean", options={"default"=0})
      */
-    private $isSuperUser = false;
+    protected $isSuperUser = false;
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
      */
-    private $isActive  = true;
+    protected $isActive  = true;
 
     /**
      * @ORM\Column(name="is_deleted", type="boolean")
      */
-    private $isDeleted = false;
+    protected $isDeleted = false;
 
     /**
      * @ORM\Column(name="is_deletable", type="boolean")
      */
-    private $isDeletable = true;
+    protected $isDeletable = true;
 
     /**
      * @var string
      */
-    private $plainPassword = null;
+    protected $plainPassword = null;
 
     /**
      * @ORM\OneToOne(targetEntity="Profile", cascade={"persist", "remove"})
      * @Constraints\Valid
      */
-    private $profile;
+    protected $profile;
 
     /**
      * @ORM\ManyToOne(targetEntity="Role")
@@ -80,7 +80,7 @@ class User implements UserInterface
      * @Constraints\Valid
      * @var Role
      */
-    private $role;
+    protected $role;
 
     /**
      * @param integer $id
@@ -289,8 +289,7 @@ class User implements UserInterface
      */
     public function getRoles ()
     {
-        $rol = new Role($this->role);
-        return array($rol);
+        return array( $this->role->getRole() );
     }
 
     /**

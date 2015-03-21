@@ -17,19 +17,19 @@ class Profile
      * @ORM\GeneratedValue(strategy="AUTO")
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
      * @var boolean
      */
-    private $isActive = true;
+    protected $isActive = true;
 
     /**
      * @ORM\Column(name="is_deleted", type="boolean")
      * @var boolean
      */
-    private $isDeleted = false;
+    protected $isDeleted = false;
 
     /**
      * @ORM\OneToOne(targetEntity="User", cascade={"persist", "remove"})
@@ -37,7 +37,7 @@ class Profile
      * @Constraints\Valid
      * @var User
      */
-    private $user;
+    protected $user;
 
     /**
      * @ORM\Column(type="string", length=50, nullable = false)
@@ -45,40 +45,40 @@ class Profile
      * @Constraints\Email()
      * @var string
      */
-    private $email;
+    protected $email;
 
     /**
      * @ORM\Column(type="string", length=50, nullable = false)
      * @Constraints\NotBlank()
      * @var string
      */
-    private $number;
+    protected $number;
 
     /**
      * @ORM\Column(type="string", length=50, nullable = true)
      * @var string
      */
-    private $number2  = null;
+    protected $number2  = null;
 
     /**
      * @ORM\Column(type="string", length=50)
      * @Constraints\NotBlank()
      * @var string
      */
-    private $firstname;
+    protected $firstname;
 
     /**
      * @ORM\Column(type="string", length=50)
      * @Constraints\NotBlank()
      * @var string
      */
-    private $lastname;
+    protected $lastname;
 
     /**
      * @ORM\Column(name="show_mail", type="boolean", options={"default"=0})
      * @var boolean
      */
-    private $showMail = false;
+    protected $showMail = false;
 
     /**
      * @param string $email

@@ -32,14 +32,14 @@ class Role
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=16)
      * @Constraints\NotBlank()
      * @var string
      */
-    private $role;
+    protected $role;
 
     /**
      * @param $id

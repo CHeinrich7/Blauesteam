@@ -29,8 +29,7 @@ class DefaultController extends Controller
 
         $user = $this->getUser(); /* @var $user User */
 
-        if(isset($user))
-        {
+        if($user instanceof User) {
             $username = $user->getUsername();
         }
 
