@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
- * @ORM\Entity(repositoryClass="cmh\UserBundle\Entity\User")
  * @ORM\Entity(repositoryClass="cmh\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="user")
  */
@@ -76,8 +75,8 @@ class User implements UserInterface
     private $profile;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Role", cascade={"persist"})
-     * @ORM\JoinColumn(referencedColumnName="role")
+     * @ORM\ManyToOne(targetEntity="Role")
+     * @ORM\JoinColumn(referencedColumnName="id")
      * @Constraints\Valid
      * @var Role
      */

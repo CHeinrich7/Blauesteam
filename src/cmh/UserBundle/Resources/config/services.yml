@@ -5,10 +5,3 @@ services:
 
     security.access_denied.handler:
         class: cmh\UserBundle\Services\Security\AccessDeniedHandler
-
-    cmh_user_role_repository:
-        class: Doctrine\ORM\EntityRepository
-        factory_service: doctrine.orm.default_entity_manager
-        factory_method: getRepository
-        arguments:
-            - cmh\UserBundle\Entity\Role

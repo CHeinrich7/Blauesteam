@@ -3,15 +3,17 @@
 namespace cmh\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\Role\Role as SecurityRole;
 use Symfony\Component\Validator\Constraints;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
- * @ORM\Entity(repositoryClass="cmh\UserBundle\Entity\Role")
+ * @ORM\Entity(repositoryClass="cmh\UserBundle\Entity\Repository\RoleRepository")
  * @ORM\Table(name="userrole")
+ *
+ * @UniqueEntity(fields="role", message="There can not be one Role twice in Database!")
  */
-class Role extends SecurityRole
+class Role
 {
     const ROLE_APPLICANT    = 'ROLE_APPLICANT';
     const ROLE_STAFF        = 'ROLE_STAFF';
@@ -19,23 +21,44 @@ class Role extends SecurityRole
     const ROLE_ADMIN        = 'ROLE_ADMIN';
     const ROLE_SUPER_ADMIN  = 'ROLE_SUPER_ADMIN';
 
-    /**
-     * Constructor.
-     *
-     * @param string $role The role name
-     */
+
     public function __construct ( $role )
     {
-        $this->role = (string) $role;
+        $this->role = $role;
     }
 
     /**
+     * @ORM\Column(type="integer")
      * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
      * @ORM\Column(type="string", length=16)
      * @Constraints\NotBlank()
      * @var string
      */
     private $role;
+
+    /**
+     * @param $id
+     *
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @param string $role

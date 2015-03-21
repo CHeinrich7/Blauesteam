@@ -44,16 +44,11 @@ class LoadUserBaseData extends UserDataLoader implements OrderedFixtureInterface
     {
         $rolename = $entityData->Role;
 
-        $cout = new ConsoleOutput();
-
         $em = $this->container->get('doctrine.orm.default_entity_manager');
 
-        $cout->writeln('before getting repo');
-        $roleRepo = $em->getRepository('UserBundle:Role');
-        $cout->writeln('after getting repo');
+        $repo = $em->getRepository('UserBundle:Role');
 
-
-//        $entityData['Role'] = $roleRepo->findOneBy($rolename);
+        $entityData->Role = $repo->findOneBy(array('role' => $rolename));
     }
 
     /**
@@ -73,7 +68,7 @@ class LoadUserBaseData extends UserDataLoader implements OrderedFixtureInterface
                     $this->fillEntity($entityProfile, $entityData);
                     break;
                 case 'user':
-                    $this->getRole($entityData);
+                    $this->getRole($entityData, $objectManager);
                     $this->fillEntity($entityUser, $entityData);
                     break;
             }
