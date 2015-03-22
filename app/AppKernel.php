@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new cmh\UserBundle\UserBundle(),
             new cmh\BackendBundle\BackendBundle(),
+            new cmh\PhilharmonicFoyerServiceBundle\PhilharmonicFoyerServiceBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

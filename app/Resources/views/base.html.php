@@ -1,5 +1,6 @@
 <?php
     use Symfony\Component\Templating\Helper\SlotsHelper;
+    /* @var $view Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine  */
     $slotsHelper = $view['slots']; /* @var $slotsHelper SlotsHelper */
 ?>
 <!DOCTYPE html>
@@ -18,7 +19,7 @@
     </head>
     <body>
     <div class="container">
-        <div class="page-header">
+        <div class="page-header" style="float:left;width:100%;padding-bottom:15px;">
             <?php $slotsHelper->output('header', ''); ?>
         </div>
     </div>

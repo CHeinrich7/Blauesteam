@@ -2,11 +2,12 @@
 use Symfony\Component\Templating\Helper\SlotsHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
 use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
-$slotsHelper = $view['slots']; /* @var $slotsHelper SlotsHelper */
-$routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
 
 /* @var $error AuthenticationServiceException */
-/* @var $info array */
+/* @var $username string */
+/* @var $view Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine  */
+$slotsHelper = $view['slots']; /* @var $slotsHelper SlotsHelper */
+$routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
 ?>
 
 <?php $view->extend('::base.html.php') ?>
@@ -14,7 +15,7 @@ $routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
 <?php $slotsHelper->start('title') ?>Login<?php $slotsHelper->stop('title') ?>
 
 <?php $slotsHelper->start('header') ?>
-            <h1 class="text-center">Das blaue Team - Login</h1>
+    <h1 style="margin: 6px 0 7px;" class="text-center">Das blaue Team - Login</h1>
 <?php $slotsHelper->stop('header') ?>
 
 
@@ -29,11 +30,11 @@ $routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
                 </div>
             </div>
         <?php endif; ?>
-        <?php if(isset($info['username'])): ?>
+        <?php if($username !== false): ?>
             <div class="row">
                 <div class="col-sm-offset-3 col-sm-6">
                     <div class="alert alert-info">
-                        <p>Danke, dass du dich ausgeloggt hast.<br /><br />Vielleicht sehen wir uns bald mal wieder, <b><?php echo $info['username']; ?></b></p>
+                        <p>Danke, dass du dich ausgeloggt hast.<br /><br />Vielleicht sehen wir uns bald mal wieder, <b><?php echo $username; ?></b></p>
                     </div>
                 </div>
             </div>

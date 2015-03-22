@@ -15,30 +15,30 @@ class DefaultController extends Controller
         /* @var $helper AuthenticationUtils */
         $helper = $this->get('security.authentication_utils');
 
+        $user = $this->getUser(); /* @var $user User */
+
+        $username = false;
+
+        if($user instanceof User) {
+            $username = $user->getUsername();
+            $this->logout($request);
+        }
+
         return $this->render('UserBundle:Default:Login.html.php', array(
             // last username entered by the user
             'last_username' => $helper->getLastUsername(),
             'error'         => $helper->getLastAuthenticationError(),
-            'info'          => $request->get('annex'),
+            'username'          => $username,
         ));
     }
 
-    public function logoutAction(Request $request)
+    public function logout(Request $request)
     {
+        $this->container->get('security.context')->setToken(null);
+
         $session = $request->getSession();
-
-        $user = $this->getUser(); /* @var $user User */
-
-        if($user instanceof User) {
-            $username = $user->getUsername();
-        }
-
         $session->invalidate(0);
-        return $this->redirect($this->generateUrl('user_login', array(
-            'annex' => array(
-                'username' => isset($username) ? $username : null
-            )
-        )));
+        $session->clear();
     }
 
     public function getUser()

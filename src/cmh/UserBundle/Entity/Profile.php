@@ -81,6 +81,12 @@ class Profile
     protected $showMail = false;
 
     /**
+     * @ORM\Column(type="string")
+     * @var string
+     */
+    protected $image;
+
+    /**
      * @param string $email
      *
      * @return Profile

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: root
- * Date: 21.03.15
- * Time: 15:46
- */
-
 namespace cmh\UserBundle\DataFixtures\ORM;
 
 use cmh\UserBundle\Entity\Role;

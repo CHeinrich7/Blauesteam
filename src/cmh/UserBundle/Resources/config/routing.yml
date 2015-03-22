@@ -3,8 +3,11 @@ user_login:
     defaults: { _controller: UserBundle:Default:login }
 
 user_check:
-    path:  /user_check
+    path:     /user_check
 
-user_logout:
+redirect_to_user_login:
     path:     /
-    defaults: { _controller: UserBundle:Default:logout }
+    defaults:
+        _controller:  FrameworkBundle:Redirect:redirect
+        route:        user_login
+        permanent:    true

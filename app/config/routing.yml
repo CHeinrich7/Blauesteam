@@ -1,3 +1,7 @@
+philharmonic_foyer_service:
+    resource: "@PhilharmonicFoyerServiceBundle/Resources/config/routing.yml"
+    prefix:   /
+
 BackendBundle:
     resource: "@BackendBundle/Resources/config/routing.yml"
     prefix:   /
