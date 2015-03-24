@@ -3,7 +3,7 @@
 /* @var $formHelper Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper */
 /* @var $form       Symfony\Component\Form\FormView */
 /* @var $label      string */
-$class = (!isset($attr['class'])) ? 'col-sm-9' : $attr['class'];
+$class = (!isset($attr['class'])) ? 'col-sm-6' : $attr['class'];
 $formHelper = $view['form'];
 ?>
 <div class="form-group">

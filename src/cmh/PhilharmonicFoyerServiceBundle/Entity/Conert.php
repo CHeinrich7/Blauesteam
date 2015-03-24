@@ -37,7 +37,7 @@ class Concert {
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="groups", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="group", mappedBy="id")
      */
     protected $groups;
 

@@ -7,12 +7,16 @@ use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityManager;
 use cmh\PhilharmonicFoyerServiceBundle\Entity\Repository\GroupRepository;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormBuilder;
 use cmh\PhilharmonicFoyerServiceBundle\Entity\Group;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class GroupController extends Controller
 {
+    const INDEX_TEMPLATE = 'PhilharmonicFoyerServiceBundle:Groups:index.html.php';
+    const EDIT_TEMPLATE = 'PhilharmonicFoyerServiceBundle:Groups:edit.html.php';
 
     /**
      * @var GroupRepository
@@ -31,14 +35,11 @@ class GroupController extends Controller
 
     function __construct ()
     {
-        $this->em = $this->get('doctrine.orm.default_entity_manager');
-        $this->groupRepo = $this->em->getRepository('PhilharmonicFoyerServiceBundle:Group');
-        $this->formBuilder = $this->createFormBuilder();
     }
 
     public function indexAction($name)
     {
-        return $this->render( 'PhilharmonicFoyerServiceBundle:Default:index.html.php', array('name' => $name));
+        return $this->render( self::INDEX_TEMPLATE, array('name' => $name));
     }
 
     public function newAction()
@@ -48,37 +49,50 @@ class GroupController extends Controller
 
     /**
      * @param Request $request
-     * @param integer $id
+     *
+     * @return Response|JsonResponse
      */
     public function editAction(Request $request)
     {
-        $id = $this->get('request')->get('id');
+        $this->em = $this->get('doctrine.orm.default_entity_manager');
+        $this->groupRepo = $this->em->getRepository('PhilharmonicFoyerServiceBundle:Group');
+        $this->formBuilder = $this->createFormBuilder();
 
-        if($id) {
-            $group = $this->groupRepo->find($id);
-        } else {
-            $group = new Group();
-        }
+        $group = new Group();
 
-        $form = $this->formBuilder->getForm();
+        $form = $this->createForm(new GroupType(), $group, array(
+            'method' => 'POST',
+            'action' => $this->generateUrl('philharmonic_edit_group')
+        ));
 
         $form->handleRequest($request);
 
         $submitted = $form->isSubmitted();
 
+        $errors = $form->getErrors();
+
+        $message = $errors->current()
+            ? $errors->current()->getMessage()
+            : null;
+
         if($submitted) {
             if($form->isValid()) {
-                $entity = $this->createForm(new GroupType(), $group);
-
-                $this->em->persist($entity);
+                $this->em->persist($group);
                 $this->em->flush();
             }
         }
+
+        $data = array(
+            'groupForm' => $form,
+            'error'     => $message
+        );
+
+        return $this->returnResponse($request, self::EDIT_TEMPLATE, $data);
     }
 
-    public function deleteAction()
+    public function deleteAction(Request $request)
     {
-        $id = $this->get('request')->get('id');
+        $id =$request->get('id');
 
         if($id <= 0) throw new \Exception('ID <= 0 not allowed');
 
@@ -90,5 +104,30 @@ class GroupController extends Controller
             ->setIsDeleted(true);
 
         $this->em->flush();
+
+        return new JsonResponse( array('success' => true) );
+    }
+
+    /**
+     * @param Request $request
+     * @param string  $template
+     * @param array   $data
+     *
+     * @return JsonResponse|Response
+     */
+    private function returnResponse(Request $request, $template, $data = array())
+    {
+        $response = $this->render($template, $data);
+
+        if($request->isXmlHttpRequest()) {
+            return new JsonResponse(
+                array(
+                    'success'   => true,
+                    'data'      => $response
+                )
+            );
+        }
+
+        return $response;
     }
 }

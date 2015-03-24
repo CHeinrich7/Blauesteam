@@ -2,15 +2,25 @@
 use Symfony\Component\Templating\Helper\SlotsHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
 use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
+use Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper;
 
 /* @var $error AuthenticationServiceException */
 /* @var $username string */
 /* @var $view Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine  */
+
+/* @var $loginForm      Symfony\Component\Form\Form */
+/* @var $loginFormView  Symfony\Component\Form\FormView */
+
 $slotsHelper = $view['slots']; /* @var $slotsHelper SlotsHelper */
 $routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
-?>
+$formHelper = $view['form']; /* @var $formHelper FormHelper */
 
-<?php $view->extend('::base.html.php') ?>
+$loginFormView = $loginForm->createView();
+
+$view->extend('::base.html.php');
+$formHelper->setTheme($loginFormView, ':Form/cmh');
+
+?>
 
 <?php $slotsHelper->start('title') ?>Login<?php $slotsHelper->stop('title') ?>
 
@@ -39,26 +49,16 @@ $routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
                 </div>
             </div>
         <?php endif; ?>
-        <form class="form-horizontal" action="<?php echo $routerHelper->generate('user_check'); ?>" method="post">
-            <div class="form-group">
-                <label for="username" class="col-sm-offset-3 col-sm-2 control-label">Username</label>
-                <div class="col-sm-3">
-                    <input id="username" type="text" class="form-control" name="_username" autocomplete="off" placeholder="Username" />
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label for="password" class="col-sm-offset-3 col-sm-2 control-label">Passwort</label>
-                <div class="col-sm-3">
-                    <input id="password" type="password" class="form-control" name="_password" autocomplete="off" placeholder="Passwort" />
-                </div>
-            </div>
+        <?php
+        echo $formHelper->start( $loginFormView );
 
-            <div class="form-group">
-                <div class=" col-sm-offset-5 col-sm-3">
-                    <button class="btn btn-primary pull-right" type="submit">Einloggen</button>
-                </div>
-            </div>
-        </form>
+        echo $formHelper->row( $loginFormView->children['_username'] );
+        echo $formHelper->row( $loginFormView->children['_password'] );
+
+        echo $formHelper->row( $loginFormView->children['save'] );
+
+        echo $formHelper->end( $loginFormView );
+        ?>
     </div>
 <?php $slotsHelper->stop('content') ?>

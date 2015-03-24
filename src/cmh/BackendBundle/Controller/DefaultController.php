@@ -14,6 +14,11 @@ class DefaultController extends Controller
     {
         $request = $this->get('request');
 
-        return $this->render('BackendBundle:Default:index.html.php', array('request' => $request));
+        $authChecker = $this->get('security.authorization_checker');
+
+        return $this->render('BackendBundle:Default:index.html.php',array(
+            'request'       => $request,
+            'authChecker'   => $authChecker
+        ));
     }
 }

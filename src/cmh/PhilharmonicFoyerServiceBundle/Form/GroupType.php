@@ -3,7 +3,7 @@ namespace cmh\PhilharmonicFoyerServiceBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Form\cmh;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class GroupType extends AbstractType
 {
@@ -14,10 +14,9 @@ class GroupType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // ->add('id')
-            ->add('isActive', new cmh\Checkbox(), array('label' => 'aktiv'))
+            ->add('isActive', 'checkbox', array('label' => 'aktiv'))
             ->add('name', 'text', array('label' => 'Name'))
-            ->add('save', 'submit')
+            ->add('save', 'submit', array('label' => 'bla'))
         ;
     }
 
@@ -27,5 +26,17 @@ class GroupType extends AbstractType
     public function getName()
     {
         return 'philharmonic_foyer_grouptype';
+    }
+
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'cmh\PhilharmonicFoyerServiceBundle\Entity\Group',
+            )
+        );
     }
 } 

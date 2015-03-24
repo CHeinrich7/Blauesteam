@@ -2,12 +2,16 @@
 use Symfony\Component\Templating\Helper\SlotsHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
 use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
-/* @var $view Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine  */
-$slotsHelper = $view['slots']; /* @var $slotsHelper SlotsHelper */
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use cmh\UserBundle\Entity\Role;
+/* @var $view           Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine  */
+/* @var $error          AuthenticationServiceException */
+/* @var $username       string */
+/* @var $authChecker    AuthorizationChecker */
+
+$slotsHelper = $view['slots'];   /* @var $slotsHelper SlotsHelper */
 $routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
 
-/* @var $error AuthenticationServiceException */
-/* @var $username string */
 ?>
 
 <?php $view->extend('::base.html.php') ?>
@@ -27,6 +31,12 @@ $routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
                         <li><a href="#" style="display: inline-block;width:100%">Infos</a></li>
                         <li><a href="#" style="display: inline-block;width:100%">Forum</a></li>
                         <li><a href="#" style="display: inline-block;width:100%">Hile</a></li>
+                        <?php if($authChecker->isGranted(Role::ROLE_CHARGER)): ?>
+                            <li class="divider"></li>
+                            <li><a href="#" style="display: inline-block;width:100%">Gruppen</a></li>
+                            <li><a href="#" style="display: inline-block;width:100%">Veranstalgungen</a></li>
+                            <li><a href="#" style="display: inline-block;width:100%">User</a></li>
+                        <?php endif; ?>
                         <li class="divider"></li>
                         <li><a href="#" style="display: inline-block;width:100%"><span class="pull-left">Eigene Daten</span><span class="glyphicon glyphicon-user pull-right"></span></a></li>
                         <li class="divider"></li>

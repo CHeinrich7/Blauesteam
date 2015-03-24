@@ -9,11 +9,9 @@
 
 $formHelper = $view['form'];
 
-$label_attr['class'] = " control-label col-sm-3 ";
-
-if(isset($attr['labelClass'])) {
-    $label_attr['class'] = $attr['labelClass'];
-}
+$label_attr['class'] = isset($attr['class-label'])
+    ? $attr['class-label'] . ' control-label'
+    : 'col-sm-3';
 
 if ($required) {
     $label_attr['class'] = trim((isset($label_attr['class']) ? $label_attr['class'] : '').' required');
@@ -29,8 +27,6 @@ if (!$label) {
 
 ?>
 <?php if (false !== $label): ?>
-<label <?php echo $formHelper->block($form, 'widget_attributes') ?>>
-    <?php echo $label ?>
-</label>
+<label <?php foreach ($label_attr as $k => $v) { printf('%s="%s" ', $view->escape($k), $view->escape($v)); } ?>><?php echo $label; ?></label>
 <?php endif ?>
 

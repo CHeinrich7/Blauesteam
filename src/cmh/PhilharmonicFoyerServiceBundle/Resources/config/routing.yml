@@ -1,6 +1,3 @@
-philharmonic_foyer_service_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: PhilharmonicFoyerServiceBundle:Default:index }
-
-philharmonic_new_group:
-    defaults: { _controller: PhilharmonicFoyerServiceBundle:Group:new }
+philharmonic_edit_group:
+    path:   /in/group/edit
+    defaults: { _controller: PhilharmonicFoyerServiceBundle:Group:edit }

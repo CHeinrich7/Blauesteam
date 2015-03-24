@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Form\cmh;
 use Symfony\Component\DependencyInjection\Container;
 use Doctrine\ORM\EntityManager;
-use cmh\PhilharmonicFoyerServiceBundle\Entity\Repository\GroupRepository;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ContentType extends AbstractType
 {
@@ -40,10 +40,14 @@ class ContentType extends AbstractType
             ->add('isActive', new cmh\Checkbox(), array('label' => 'aktiv'))
             ->add('date', 'date', array('label' => 'Datum'))
             ->add('groups', 'entity', array(
-                'class'     => 'PhilharmonicFoyerService:Group',
+                'class'     => 'cmh\PhilharmonicFoyerService\Entity\Group',
                 'property'  => 'name',
-                'choices'   => $this->groupEntityList()
+                'label'     => 'Gruppen',
+                'required'  => true,
+                'multiple'  => true,
+                'expanded'  => true,
             ))
+
             ->add('info1', 'text', array('label' => '1. Informationszeile'))
             ->add('info2', 'text', array('label' => '2. Informationszeile'))
             ->add('info3', 'text', array('label' => '3. Informationszeile'))
@@ -59,12 +63,14 @@ class ContentType extends AbstractType
     }
 
     /**
-     * @return array
+     * @param OptionsResolverInterface $resolver
      */
-    private function groupEntityList()
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        /* @var $repo GroupRepository */
-        $repo = $this->em->getRepository('PhilharmonicFoyerServiceBundle:Group');
-        return $repo->findAll();
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'cmh\PhilharmonicFoyerServiceBundle\Entity\Content',
+            )
+        );
     }
 } 

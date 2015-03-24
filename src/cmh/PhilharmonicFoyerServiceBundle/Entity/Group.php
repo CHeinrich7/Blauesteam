@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Constraints;
 
 /**
  * @ORM\Entity(repositoryClass="cmh\PhilharmonicFoyerServiceBundle\Entity\Repository\GroupRepository")
- * @ORM\Table(name="group")
+ * @ORM\Table(name="cluster")
  */
 class Group {
     /**
