@@ -1,5 +1,4 @@
 <?php
-
 namespace cmh\PhilharmonicFoyerServiceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -37,7 +36,7 @@ class Concert {
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="group", mappedBy="id")
+     * @ORM\ManyToMany(targetEntity="Group", mappedBy="concerts")
      */
     protected $groups;
 
@@ -66,6 +65,8 @@ class Concert {
 
     /**
      * @param \datetime $date
+     *
+     * @return Concert
      */
     public function setDate ( $date )
     {
@@ -111,6 +112,7 @@ class Concert {
         $this->groups->add($group);
         return $this;
     }
+
     /**
      * @param Group $group
      *

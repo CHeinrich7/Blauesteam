@@ -1,0 +1,29 @@
+#header .page-header {
+    float:left;
+    width:100%;
+    padding-bottom:15px;
+}
+
+#header .header-headline {
+    margin-bottom:0;
+    color:#666;
+    float: left;
+}
+
+#header .header-headline > .glyphicon {
+    font-size:26px;
+}
+
+#header .navbar-right h4 {
+    float: left;
+    margin: 0;
+}
+
+#header .user-img {
+    width: 74px;
+    height: 74px;
+    margin: -28px 0 -28px 10px;
+    border-radius:100%;
+    border:5px solid #ddd;
+    float: right;
+}

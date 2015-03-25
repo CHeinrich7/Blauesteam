@@ -19,12 +19,12 @@ $routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
 <?php $slotsHelper->start('title') ?>UserArea<?php $slotsHelper->stop('title') ?>
 
 <?php $slotsHelper->start('header') ?>
-            <h2 class="pull-left" style="margin-bottom:0;color:#666"><span class="glyphicon glyphicon-chevron-right" style="font-size:26px;"></span>&nbsp;UserArea</h2>
+            <h2 class="header-headline"><span class="glyphicon glyphicon-chevron-right"></span>&nbsp;UserArea</h2>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="background:none;color:#666">
-                        <h4 class="pull-left" style="margin:0;"><span class="glyphicon glyphicon-chevron-down"></span></h4>
-                        <img alt="64x64" data-src="holder.js/64x64" class="media-object pull-right" style="width: 74px; height: 74px;margin: -28px 0 -28px 10px;border-radius:100%;border:5px solid #dddddd;" src="/bundles/backend/images/profile.jpg" data-holder-rendered="true">
+                        <h4><span class="glyphicon glyphicon-chevron-down"></span></h4>
+                        <img alt="64x64" class="user-img" src="/bundles/backend/images/profile.jpg" data-holder-rendered="true">
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#" style="display: inline-block;width:100%">Dienste</a></li>

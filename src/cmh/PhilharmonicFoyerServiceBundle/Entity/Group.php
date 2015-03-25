@@ -3,10 +3,11 @@ namespace cmh\PhilharmonicFoyerServiceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="cmh\PhilharmonicFoyerServiceBundle\Entity\Repository\GroupRepository")
- * @ORM\Table(name="cluster")
+ * @ORM\Table(name="groups")
  */
 class Group {
     /**
@@ -35,6 +36,23 @@ class Group {
      * @var string
      */
     protected $name;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Concert")
+     * @ORM\JoinTable(name="concert_groups",
+     *      joinColumns={@ORM\JoinColumn(name="groups_id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="concerts_id")}
+     *      )
+     * @var ArrayCollection
+     */
+    protected $concerts;
+
+    public function __construct($group = null)
+    {
+        $this->setConcerts( new ArrayCollection() );
+
+        if($group != null) $this->name = $group;
+    }
 
     /**
      * @param integer $id
@@ -91,6 +109,36 @@ class Group {
     public function getIsDeleted ()
     {
         return $this->isDeleted;
+    }
+
+    /**
+     * @param ArrayCollection $concerts
+     *
+     * @return Group
+     */
+    protected function setConcerts (ArrayCollection $concerts )
+    {
+        $this->groups = $concerts;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getConcerts ()
+    {
+        return $this->concerts;
+    }
+
+
+    /**
+     * @param Concert $concert
+     *
+     * @return Group
+     */
+    public function addConcert(Concert $concert)
+    {
+        $concert->addGroup($this);
     }
 
     /**

@@ -13,13 +13,15 @@
         <title><?php $slotsHelper->output('title') ?> - Blauesteam</title>
 
         <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/helper.css" rel="stylesheet">
+        <link href="/css/base.css" rel="stylesheet">
         <?php $slotsHelper->output('styles', ''); ?>
 
         <script type="text/javascript"></script>
     </head>
     <body>
-    <div class="container">
-        <div class="page-header" style="float:left;width:100%;padding-bottom:15px;">
+    <div class="container" id="header">
+        <div class="page-header">
             <?php $slotsHelper->output('header', ''); ?>
         </div>
     </div>
