@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 //use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class LoginType extends AbstractType
+class UserType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -24,9 +24,9 @@ class LoginType extends AbstractType
         );
 
         $builder
-            ->add('_username', 'text', array('label' => 'Username', 'attr' => $inputAttr))
-            ->add('_password', 'password', array('label' => 'Passwort', 'attr' => $inputAttr))
-            ->add('save', 'submit', array('label' => 'Einloggen', 'attr' => $buttonAttr))
+            ->add('username',   'text',     array('label' => 'Username', 'attr' => $inputAttr))
+            ->add('password',   'password', array('label' => 'Passwort', 'attr' => $inputAttr))
+            ->add('save',       'submit',   array('label' => 'Einloggen', 'attr' => $buttonAttr))
         ;
     }
 
@@ -35,6 +35,6 @@ class LoginType extends AbstractType
      */
     public function getName()
     {
-        return 'user_logintype';
+        return 'user_usertype';
     }
 } 

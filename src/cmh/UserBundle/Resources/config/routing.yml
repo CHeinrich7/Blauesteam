@@ -11,3 +11,9 @@ redirect_to_user_login:
         _controller:  FrameworkBundle:Redirect:redirect
         route:        user_login
         permanent:    true
+
+user_profile:
+    path:     /in/user
+
+user_edit:
+    path:     /in/user/edit

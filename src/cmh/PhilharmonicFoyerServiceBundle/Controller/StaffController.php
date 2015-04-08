@@ -2,26 +2,25 @@
 
 namespace cmh\PhilharmonicFoyerServiceBundle\Controller;
 
-use cmh\PhilharmonicFoyerServiceBundle\Form\GroupType;
-use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use cmh\PhilharmonicFoyerServiceBundle\Entity\Repository\StaffRepository;
 use Doctrine\ORM\EntityManager;
-use cmh\PhilharmonicFoyerServiceBundle\Entity\Repository\GroupRepository;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormBuilder;
-use cmh\PhilharmonicFoyerServiceBundle\Entity\Group;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use cmh\PhilharmonicFoyerServiceBundle\Entity\Staff;
+use cmh\PhilharmonicFoyerServiceBundle\Form\StaffType;
 
-class GroupController extends Controller
+class StaffController extends Controller
 {
-    const INDEX_TEMPLATE = 'PhilharmonicFoyerServiceBundle:Groups:index.html.php';
-    const EDIT_TEMPLATE = 'PhilharmonicFoyerServiceBundle:Groups:edit.html.php';
+    const INDEX_TEMPLATE = 'PhilharmonicFoyerServiceBundle:Staff:index.html.php';
+    const EDIT_TEMPLATE = 'PhilharmonicFoyerServiceBundle:Staff:edit.html.php';
 
     /**
-     * @var GroupRepository
+     * @var StaffRepository
      */
-    private $groupRepo;
+    private $staffRepo;
 
     /**
      * @var EntityManager
@@ -32,10 +31,6 @@ class GroupController extends Controller
      * @var FormBuilder
      */
     private $formBuilder;
-
-    function __construct ()
-    {
-    }
 
     public function indexAction($name)
     {
@@ -50,14 +45,14 @@ class GroupController extends Controller
     public function editAction(Request $request)
     {
         $this->em = $this->get('doctrine.orm.default_entity_manager');
-        $this->groupRepo = $this->em->getRepository('PhilharmonicFoyerServiceBundle:Group');
+        $this->staffRepo = $this->em->getRepository('PhilharmonicFoyerServiceBundle:Staff');
         $this->formBuilder = $this->createFormBuilder();
 
-        $group = new Group();
+        $staff = new Staff();
 
-        $form = $this->createForm(new GroupType(), $group, array(
+        $form = $this->createForm(new StaffType(), $staff, array(
             'method' => 'POST',
-            'action' => $this->generateUrl('philharmonic_edit_group')
+            'action' => $this->generateUrl('philharmonic_edit_staff')
         ));
 
         $form->handleRequest($request);
@@ -72,35 +67,17 @@ class GroupController extends Controller
 
         if($submitted) {
             if($form->isValid()) {
-                $this->em->persist($group);
+                $this->em->persist($staff);
                 $this->em->flush();
             }
         }
 
         $data = array(
-            'groupForm' => $form,
+            'staffForm' => $form,
             'error'     => $message
         );
 
         return $this->returnResponse($request, self::EDIT_TEMPLATE, $data);
-    }
-
-    public function deleteAction(Request $request)
-    {
-        $id =$request->get('id');
-
-        if($id <= 0) throw new \Exception('ID <= 0 not allowed');
-
-        $group = $this->groupRepo->find($id); /* @var $group Group */
-
-        if(!$group) throw new EntityNotFoundException('No Entity with ID "' . $id . '" found!');
-        $group
-            ->setIsActive(false)
-            ->setIsDeleted(true);
-
-        $this->em->flush();
-
-        return new JsonResponse( array('success' => true) );
     }
 
     /**

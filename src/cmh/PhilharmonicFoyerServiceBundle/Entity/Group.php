@@ -38,6 +38,13 @@ class Group {
     protected $name;
 
     /**
+     * @ORM\OneToMany(targetEntity="Staff", mappedBy="group")
+     * @var ArrayCollection
+     **/
+    protected $staffs;
+
+    /**
+     * @ORM\Column(nullable = true)
      * @ORM\ManyToMany(targetEntity="Concert")
      * @ORM\JoinTable(name="concert_groups",
      *      joinColumns={@ORM\JoinColumn(name="groups_id")},
@@ -45,7 +52,7 @@ class Group {
      *      )
      * @var ArrayCollection
      */
-    protected $concerts;
+    protected $concerts = null;
 
     public function __construct($group = null)
     {
@@ -112,11 +119,41 @@ class Group {
     }
 
     /**
+     * @param ArrayCollection $staffs
+     *
+     * @return Group
+     */
+    public function setStaffs ( ArrayCollection $staffs )
+    {
+        $this->staffs = $staffs;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getStaffs ()
+    {
+        return $this->staffs;
+    }
+
+    /**
+     * @param Staff $staff
+     *
+     * @return Group
+     */
+    public function addStaff ( Staff $staff )
+    {
+        $staff->setGroup($this);
+        return $this;
+    }
+
+    /**
      * @param ArrayCollection $concerts
      *
      * @return Group
      */
-    protected function setConcerts (ArrayCollection $concerts )
+    protected function setConcerts ( ArrayCollection $concerts )
     {
         $this->groups = $concerts;
         return $this;
@@ -130,13 +167,12 @@ class Group {
         return $this->concerts;
     }
 
-
     /**
      * @param Concert $concert
      *
      * @return Group
      */
-    public function addConcert(Concert $concert)
+    public function addConcert ( Concert $concert )
     {
         $concert->addGroup($this);
     }

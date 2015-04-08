@@ -1,3 +1,7 @@
 philharmonic_edit_group:
     path:   /in/group/edit
     defaults: { _controller: PhilharmonicFoyerServiceBundle:Group:edit }
+
+philharmonic_edit_staff:
+    path:   /in/staff/edit
+    defaults: { _controller: PhilharmonicFoyerServiceBundle:Staff:edit }

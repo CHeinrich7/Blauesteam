@@ -28,7 +28,7 @@ class DefaultController extends Controller
         $loginForm = $this->createForm(new LoginType(), null, array(
             'method' => 'POST',
             'action' => $this->generateUrl('user_check'),
-            'csrf_protection' => false
+//            'csrf_protection' => false
         ));
 
         return $this->render('UserBundle:Default:Login.html.php', array(
