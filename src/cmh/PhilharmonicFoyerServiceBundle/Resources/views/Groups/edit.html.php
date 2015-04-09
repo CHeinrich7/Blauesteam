@@ -21,7 +21,7 @@ $formHelper->setTheme($groupFormView, ':Form/cmh');
 ?>
 
 <?php $slotsHelper->start('content') ?>
-<div class="container">
+    <div class="container">
         <?php
         echo $formHelper->start( $groupFormView );
 
@@ -34,5 +34,5 @@ $formHelper->setTheme($groupFormView, ':Form/cmh');
 
         echo $formHelper->end( $groupFormView );
         ?>
-</div>
+    </div>
 <?php $slotsHelper->stop('content') ?>

@@ -1,11 +1,14 @@
 <?php
 namespace cmh\PhilharmonicFoyerServiceBundle\Form;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\AbstractType;
+use Form\cmh;
+use Symfony\Component\DependencyInjection\Container;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class GroupType extends AbstractType
+class ConcertType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -23,8 +26,23 @@ class GroupType extends AbstractType
         );
 
         $builder
+            // ->add('id')
             ->add('isActive', 'checkbox', array('label' => 'aktiv', 'attr' => $inputAttr))
-            ->add('name', 'text', array('label' => 'Name', 'attr' => $inputAttr))
+            ->add('date', 'date', array('label' => 'Datum', 'attr' => $inputAttr))
+            ->add('groups', 'entity', array(
+                'class'     => 'cmh\PhilharmonicFoyerServiceBundle\Entity\Group',
+                'property'  => 'name',
+                'label'     => 'Gruppen',
+                'required'  => true,
+                'multiple'  => true,
+                'expanded'  => true,
+                'attr'      => $inputAttr,
+            ))
+
+            ->add('info1', 'text', array('label' => '1. Informationszeile', 'attr' => $inputAttr))
+            ->add('info2', 'text', array('label' => '2. Informationszeile', 'attr' => $inputAttr))
+            ->add('info3', 'text', array('label' => '3. Informationszeile', 'attr' => $inputAttr))
+
             ->add('save', 'submit', array('label' => 'bla', 'attr' => $buttonAttr))
         ;
     }
@@ -34,7 +52,7 @@ class GroupType extends AbstractType
      */
     public function getName()
     {
-        return 'philharmonic_foyer_grouptype';
+        return 'philharmonic_foyer_concerttype';
     }
 
     /**
@@ -44,7 +62,7 @@ class GroupType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'cmh\PhilharmonicFoyerServiceBundle\Entity\Group',
+                'data_class' => 'cmh\PhilharmonicFoyerServiceBundle\Entity\Concert',
             )
         );
     }

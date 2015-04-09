@@ -92,3 +92,7 @@
 .round {
     border-radius:100%;
 }
+
+.text-center-important {
+    text-align: center !important;
+}

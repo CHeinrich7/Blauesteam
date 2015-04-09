@@ -1,27 +1,28 @@
 <?php
 
-namespace cmh\PhilharmonicFoyerServiceBundle\Controller;
+namespace cmh\UserBundle\Controller;
 
-use cmh\PhilharmonicFoyerServiceBundle\Form\GroupType;
-use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Doctrine\ORM\EntityManager;
-use cmh\PhilharmonicFoyerServiceBundle\Entity\Repository\GroupRepository;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\FormBuilder;
-use cmh\PhilharmonicFoyerServiceBundle\Entity\Group;
+//use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use cmh\UserBundle\Entity\Profile;
+use cmh\UserBundle\Form\ProfileType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use cmh\UserBundle\Entity\Repository\ProfileRepository;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
-class GroupController extends Controller
+class ProfileController extends Controller
 {
-    const INDEX_TEMPLATE = 'PhilharmonicFoyerServiceBundle:Groups:index.html.php';
-    const EDIT_TEMPLATE = 'PhilharmonicFoyerServiceBundle:Groups:edit.html.php';
+    const INDEX_TEMPLATE = 'UserBundle:Profile:index.html.php';
+    const EDIT_TEMPLATE = 'UserBundle:Profile:edit.html.php';
 
     /**
-     * @var GroupRepository
+     * @var ProfileRepository
      */
-    private $groupRepo;
+    private $profileRepo;
 
     /**
      * @var EntityManager
@@ -32,6 +33,7 @@ class GroupController extends Controller
      * @var FormBuilder
      */
     private $formBuilder;
+
 
     public function indexAction($name)
     {
@@ -46,14 +48,14 @@ class GroupController extends Controller
     public function editAction(Request $request)
     {
         $this->em = $this->get('doctrine.orm.default_entity_manager');
-        $this->groupRepo = $this->em->getRepository('PhilharmonicFoyerServiceBundle:Group');
+        $this->profileRepo = $this->em->getRepository('UserBundle:Profile');
         $this->formBuilder = $this->createFormBuilder();
 
-        $group = new Group();
+        $profile = new Profile();
 
-        $form = $this->createForm(new GroupType(), $group, array(
+        $form = $this->createForm(new ProfileType(), $profile, array(
             'method' => 'POST',
-            'action' => $this->generateUrl('philharmonic_edit_group')
+            'action' => $this->generateUrl('user_edit_profile')
         ));
 
         $form->handleRequest($request);
@@ -68,35 +70,20 @@ class GroupController extends Controller
 
         if($submitted) {
             if($form->isValid()) {
-                $this->em->persist($group);
+                $user = new ControllerReference('UserBundle:Default:getUser');
+                $profile->setUser($user);
+
+                $this->em->persist($profile);
                 $this->em->flush();
             }
         }
 
         $data = array(
-            'groupForm' => $form,
+            'profileForm' => $form,
             'error'     => $message
         );
 
         return $this->returnResponse($request, self::EDIT_TEMPLATE, $data);
-    }
-
-    public function deleteAction(Request $request)
-    {
-        $id =$request->get('id');
-
-        if($id <= 0) throw new \Exception('ID <= 0 not allowed');
-
-        $group = $this->groupRepo->find($id); /* @var $group Group */
-
-        if(!$group) throw new EntityNotFoundException('No Entity with ID "' . $id . '" found!');
-        $group
-            ->setIsActive(false)
-            ->setIsDeleted(true);
-
-        $this->em->flush();
-
-        return new JsonResponse( array('success' => true) );
     }
 
     /**
@@ -121,4 +108,5 @@ class GroupController extends Controller
 
         return $response;
     }
+
 }

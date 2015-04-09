@@ -5,3 +5,7 @@ philharmonic_edit_group:
 philharmonic_edit_staff:
     path:   /in/staff/edit
     defaults: { _controller: PhilharmonicFoyerServiceBundle:Staff:edit }
+
+philharmonic_edit_concert:
+    path:   /in/concert/edit
+    defaults: { _controller: PhilharmonicFoyerServiceBundle:Concert:edit }

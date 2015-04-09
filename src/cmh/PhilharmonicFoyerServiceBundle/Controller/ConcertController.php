@@ -2,26 +2,26 @@
 
 namespace cmh\PhilharmonicFoyerServiceBundle\Controller;
 
-use cmh\PhilharmonicFoyerServiceBundle\Form\GroupType;
+use cmh\PhilharmonicFoyerServiceBundle\Form\ConcertType;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityManager;
-use cmh\PhilharmonicFoyerServiceBundle\Entity\Repository\GroupRepository;
+use cmh\PhilharmonicFoyerServiceBundle\Entity\Repository\ConcertRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormBuilder;
-use cmh\PhilharmonicFoyerServiceBundle\Entity\Group;
+use cmh\PhilharmonicFoyerServiceBundle\Entity\Concert;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class GroupController extends Controller
+class ConcertController extends Controller
 {
-    const INDEX_TEMPLATE = 'PhilharmonicFoyerServiceBundle:Groups:index.html.php';
-    const EDIT_TEMPLATE = 'PhilharmonicFoyerServiceBundle:Groups:edit.html.php';
+    const INDEX_TEMPLATE = 'PhilharmonicFoyerServiceBundle:Concert:index.html.php';
+    const EDIT_TEMPLATE = 'PhilharmonicFoyerServiceBundle:Concert:edit.html.php';
 
     /**
-     * @var GroupRepository
+     * @var ConcertRepository
      */
-    private $groupRepo;
+    private $concertRepo;
 
     /**
      * @var EntityManager
@@ -46,14 +46,16 @@ class GroupController extends Controller
     public function editAction(Request $request)
     {
         $this->em = $this->get('doctrine.orm.default_entity_manager');
-        $this->groupRepo = $this->em->getRepository('PhilharmonicFoyerServiceBundle:Group');
+        $this->concertRepo = $this->em->getRepository('PhilharmonicFoyerServiceBundle:Concert');
         $this->formBuilder = $this->createFormBuilder();
 
-        $group = new Group();
+        $concert = new Concert();
 
-        $form = $this->createForm(new GroupType(), $group, array(
+        $concert->setDate(new \DateTime());
+
+        $form = $this->createForm(new ConcertType(), $concert, array(
             'method' => 'POST',
-            'action' => $this->generateUrl('philharmonic_edit_group')
+            'action' => $this->generateUrl('philharmonic_edit_concert')
         ));
 
         $form->handleRequest($request);
@@ -68,13 +70,13 @@ class GroupController extends Controller
 
         if($submitted) {
             if($form->isValid()) {
-                $this->em->persist($group);
+                $this->em->persist($concert);
                 $this->em->flush();
             }
         }
 
         $data = array(
-            'groupForm' => $form,
+            'concertForm' => $form,
             'error'     => $message
         );
 
@@ -87,10 +89,10 @@ class GroupController extends Controller
 
         if($id <= 0) throw new \Exception('ID <= 0 not allowed');
 
-        $group = $this->groupRepo->find($id); /* @var $group Group */
+        $concert = $this->concertRepo->find($id); /* @var $concert Concert */
 
-        if(!$group) throw new EntityNotFoundException('No Entity with ID "' . $id . '" found!');
-        $group
+        if(!$concert) throw new EntityNotFoundException('No Entity with ID "' . $id . '" found!');
+        $concert
             ->setIsActive(false)
             ->setIsDeleted(true);
 

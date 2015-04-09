@@ -1,5 +1,4 @@
 <?php
-
 namespace cmh\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;

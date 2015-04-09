@@ -13,7 +13,11 @@ redirect_to_user_login:
         permanent:    true
 
 user_profile:
-    path:     /in/user
+    path:     /in/userprofile
 
-user_edit:
+user_edit_user:
     path:     /in/user/edit
+
+user_edit_profile:
+    path:     /in/profile/edit
+    defaults: { _controller: UserBundle:Profile:edit }

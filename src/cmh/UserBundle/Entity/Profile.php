@@ -81,7 +81,7 @@ class Profile
     protected $showMail = false;
 
     /**
-     * @ORM\Column(type="string", nullable = true)
+     * @ORM\Column(name="image", type="string", nullable = true)
      * @var string
      */
     protected $image = null;
@@ -274,5 +274,24 @@ class Profile
     public function getUser ()
     {
         return $this->user;
+    }
+
+    /**
+     * @param string $image
+     *
+     * @return Profile;
+     */
+    public function setImage ( $image )
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage ()
+    {
+        return $this->image;
     }
 } 

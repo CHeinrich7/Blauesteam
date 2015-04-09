@@ -57,6 +57,7 @@ class Group {
     public function __construct($group = null)
     {
         $this->setConcerts( new ArrayCollection() );
+        $this->setStaffs( new ArrayCollection() );
 
         if($group != null) $this->name = $group;
     }

@@ -7,20 +7,23 @@
 $formHelper = $view['form'];
 ?>
 
-<style type="text/css">
-    .cmh-checkbox + label > span {
-        color: #ddd;
-        font-size: 20px;
+<?php
+    $widgetAttr = $formHelper->block($form, 'widget_attributes');
+    $arrWidgetAttr = explode('"', $widgetAttr);
+    for($i = 0; $i < count($arrWidgetAttr); $i++)
+    {
+        if(in_array(trim($arrWidgetAttr[$i]), array('class=', 'class-label=')))
+        {
+            unset($arrWidgetAttr[$i]);
+            unset($arrWidgetAttr[$i+1]);
+            $i++;
+        }
     }
-    .cmh-checkbox:checked + label > span {
-        color: green;
-    }
-    .cmh-checkbox:hover + label > span {
-        color: #5cb85c;
-    }
-</style>
 
-<input <?php echo $formHelper->block($form, 'widget_attributes') ?> type="checkbox" class="hidden cmh-checkbox" autocomplete="off" />
+    $widgetAttr = implode('"', $arrWidgetAttr);
+?>
+
+<input <?php echo $widgetAttr; ?> type="checkbox" class="hidden cmh-checkbox" autocomplete="off" />
 <label for="<?php echo $id; ?>">
     <span class="glyphicon glyphicon-ok"></span>
 </label>

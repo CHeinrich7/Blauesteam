@@ -37,3 +37,14 @@
     display: inline-block;
     width: 100%;
 }
+
+.cmh-checkbox + label > span {
+    color: #ddd;
+    font-size: 20px;
+}
+.cmh-checkbox:checked + label > span {
+    color: green;
+}
+.cmh-checkbox:hover + label > span {
+    color: #5cb85c;
+}
