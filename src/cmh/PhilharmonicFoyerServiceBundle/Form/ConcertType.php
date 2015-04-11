@@ -21,6 +21,11 @@ class ConcertType extends AbstractType
             'class'         => 'col-md-3 col-sm-4'
         );
 
+        $entityAttr = array(
+            'class-label'   => 'col-md-offset-2 col-md-3 col-sm-offset-1 col-sm-4',
+            'class'         => 'col-xs-12'
+        );
+
         $buttonAttr = array(
             'class'         => 'col-sm-9 col-md-8'
         );
@@ -35,8 +40,8 @@ class ConcertType extends AbstractType
                 'label'     => 'Gruppen',
                 'required'  => true,
                 'multiple'  => true,
-                'expanded'  => true,
-                'attr'      => $inputAttr,
+//                'expanded'  => true,
+                'attr'      => $entityAttr,
             ))
 
             ->add('info1', 'text', array('label' => '1. Informationszeile', 'attr' => $inputAttr))
