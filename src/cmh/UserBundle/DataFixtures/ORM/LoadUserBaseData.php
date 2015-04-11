@@ -58,6 +58,7 @@ class LoadUserBaseData extends UserDataLoader implements OrderedFixtureInterface
     protected function loadUsers($content, ObjectManager $objectManager)
     {
         $users = json_decode($content);
+
         $entityProfile = new Profile();
         $entityUser = new User();
 

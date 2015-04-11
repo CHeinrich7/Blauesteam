@@ -43,7 +43,7 @@ class LoadUserDummyData extends LoadUserBaseData implements OrderedFixtureInterf
         }
     }
 
-    protected function setUserPasswort(\stdClass $user, User $entityUser)
+    protected function setUserPassword(\stdClass $user, User $entityUser)
     {
         $factory = $this->container->get('security.encoder_factory');
 
@@ -61,7 +61,7 @@ class LoadUserDummyData extends LoadUserBaseData implements OrderedFixtureInterf
         $entityProfile = new Profile();
         $entityUser = new User();
 
-        $this->setUserPasswort($user->user, $entityUser);
+        $this->setUserPassword($user->user, $entityUser);
 
         foreach($user as $entityName => $entityData)
         {
@@ -107,4 +107,4 @@ class LoadUserDummyData extends LoadUserBaseData implements OrderedFixtureInterf
     {
         return 3; // the order in which fixtures will be loaded
     }
-} 
+}
