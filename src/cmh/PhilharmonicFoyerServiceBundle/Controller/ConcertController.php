@@ -28,11 +28,6 @@ class ConcertController extends Controller
      */
     private $em;
 
-    /**
-     * @var FormBuilder
-     */
-    private $formBuilder;
-
     public function indexAction($name)
     {
         return $this->render( self::INDEX_TEMPLATE, array('name' => $name));
@@ -47,7 +42,6 @@ class ConcertController extends Controller
     {
         $this->em = $this->get('doctrine.orm.default_entity_manager');
         $this->concertRepo = $this->em->getRepository('PhilharmonicFoyerServiceBundle:Concert');
-        $this->formBuilder = $this->createFormBuilder();
 
         $concert = new Concert();
 

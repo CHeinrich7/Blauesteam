@@ -4,8 +4,6 @@ namespace cmh\PhilharmonicFoyerServiceBundle\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use Form\cmh;
-use Symfony\Component\DependencyInjection\Container;
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ConcertType extends AbstractType
@@ -36,9 +34,6 @@ class ConcertType extends AbstractType
             ->add('date', 'date', array('label' => 'Datum', 'attr' => $inputAttr))
             ->add('groups', 'entity', array(
                 'class'     => 'cmh\PhilharmonicFoyerServiceBundle\Entity\Group',
-                'property'  => 'name',
-                'label'     => 'Gruppen',
-                'required'  => true,
                 'multiple'  => true,
 //                'expanded'  => true,
                 'attr'      => $entityAttr,
