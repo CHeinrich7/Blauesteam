@@ -44,12 +44,7 @@ class Group {
     protected $staffs;
 
     /**
-     * @ORM\Column(nullable = true)
-     * @ORM\ManyToMany(targetEntity="Concert")
-     * @ORM\JoinTable(name="concert_groups",
-     *      joinColumns={@ORM\JoinColumn(name="groups_id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="concerts_id")}
-     *      )
+     * @ORM\ManyToMany(targetEntity="Concert", mappedBy="groups")
      * @var ArrayCollection
      */
     protected $concerts = null;
