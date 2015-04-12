@@ -19,24 +19,21 @@ class ConcertType extends AbstractType
             'class'         => 'col-md-3 col-sm-4'
         );
 
-        $entityAttr = array(
-            'class-label'   => 'col-md-offset-2 col-md-3 col-sm-offset-1 col-sm-4',
-            'class'         => 'col-xs-12'
-        );
-
         $buttonAttr = array(
             'class'         => 'col-sm-9 col-md-8'
         );
 
         $builder
             // ->add('id')
-            ->add('isActive', 'checkbox', array('label' => 'aktiv', 'attr' => $inputAttr))
+            ->add('isActive', 'checkbox', array('label' => 'aktiv', 'attr' => $inputAttr, 'required' => false))
             ->add('date', 'date', array('label' => 'Datum', 'attr' => $inputAttr))
+            ->add('serviceStart', 'time', array('label' => 'Dienstbeginn', 'attr' => $inputAttr))
+            ->add('concertStart', 'time', array('label' => 'Veranstaltungsbeginn', 'attr' => $inputAttr))
             ->add('groups', 'entity', array(
                 'class'     => 'cmh\PhilharmonicFoyerServiceBundle\Entity\Group',
                 'multiple'  => true,
 //                'expanded'  => true,
-                'attr'      => $entityAttr,
+                'attr'      => $inputAttr,
             ))
 
             ->add('info1', 'text', array('label' => '1. Informationszeile', 'attr' => $inputAttr))

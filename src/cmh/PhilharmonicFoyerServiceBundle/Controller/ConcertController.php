@@ -28,9 +28,13 @@ class ConcertController extends Controller
      */
     private $em;
 
-    public function indexAction($name)
+    public function indexAction()
     {
-        return $this->render( self::INDEX_TEMPLATE, array('name' => $name));
+        $this->em = $this->get('doctrine.orm.default_entity_manager');
+        $this->concertRepo = $this->em->getRepository('PhilharmonicFoyerServiceBundle:Concert');
+
+        $concerts = $this->concertRepo->findAllByDate();
+        return $this->render( self::INDEX_TEMPLATE, array('concerts' => $concerts) );
     }
 
     /**
@@ -64,6 +68,9 @@ class ConcertController extends Controller
 
         if($submitted) {
             if($form->isValid()) {
+
+                var_dump($concert);
+
                 $this->em->persist($concert);
                 $this->em->flush();
             }

@@ -35,8 +35,19 @@ class Concert {
     protected $date;
 
     /**
+     * @var \datetime
+     * @ORM\Column(name="concertstart", type="datetime")
+     */
+    protected $concertStart;
+
+    /**
+     * @var \datetime
+     * @ORM\Column(name="servicestart", type="datetime", nullable=true)
+     */
+    protected $serviceStart;
+
+    /**
      * @var ArrayCollection
-     * @ORM\Column(nullable = true)
      * @ORM\ManyToMany(targetEntity="Group", inversedBy="concerts")
      * @ORM\JoinTable(name="concert_groups")
      */
@@ -44,19 +55,19 @@ class Concert {
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $info1;
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $info2;
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $info3;
 
@@ -82,6 +93,44 @@ class Concert {
     public function getDate ()
     {
         return $this->date;
+    }
+
+    /**
+     * @param \datetime $concertStart
+     *
+     * @return Concert
+     */
+    public function setConcertStart ( $concertStart )
+    {
+        $this->concertStart = $concertStart;
+        return $this;
+    }
+
+    /**
+     * @return \datetime
+     */
+    public function getConcertStart ()
+    {
+        return $this->concertStart;
+    }
+
+    /**
+     * @param \datetime $serviceStart
+     *
+     * @return Concert
+     */
+    public function setServiceStart ( $serviceStart )
+    {
+        $this->date = $serviceStart;
+        return $this;
+    }
+
+    /**
+     * @return \datetime
+     */
+    public function getServiceStart ()
+    {
+        return $this->serviceStart;
     }
 
     /**

@@ -37,22 +37,21 @@ $groupAttr['class-label'] = $groupAttr['class'] . ' text-center-important';
 
         echo $formHelper->row( $concertFormView->children['isActive'] );
         echo $formHelper->row( $concertFormView->children['date'] );
-        echo $formHelper->row( $concertFormView->children['groups'] );
-?>
-<!--        <div class="form-group">-->
-<!--            --><?php //echo $formHelper->label( $concertFormView->children['groups'] ); ?>
-<!--            <div class="--><?php //echo $inputAttr['class']; ?><!--" style="padding-top:8px;">-->
-<!--                --><?php //foreach($concertFormView->children['groups'] as $child): /* @var $child Symfony\Component\Form\FormView */ ?>
-<!--                    <div class="col-xs-6 no-padding">-->
-<!--                        <div class="form-group">-->
-<!--                    --><?php //echo $formHelper->label( $child,  $child->vars['label'], array('attr' => $groupAttr) ); ?>
-<!--                    --><?php //echo $formHelper->widget( $child ); ?>
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                --><?php //endforeach; ?>
-<!--            </div>-->
-<!--        </div>-->
-<?php
+        echo $formHelper->row( $concertFormView->children['concertStart'] );
+        echo $formHelper->row( $concertFormView->children['serviceStart'] );
+//        echo $formHelper->row( $concertFormView->children['groups'] );
+        ?>
+        <div class="form-group">
+            <?php echo $formHelper->label( $concertFormView->children['groups'] ); ?>
+            <div class="col-sm-4 col-md-3">
+                <div class="alert alert-info">
+                    <p>Halten sie die <b>STRG</b>-Taste gedrückt um mehrere Gruppen auswählen zu können</p>
+                </div>
+                <?php echo $formHelper->widget( $concertFormView->children['groups'] ); ?>
+            </div>
+        </div>
+
+        <?php
         echo $formHelper->row( $concertFormView->children['info1'] );
         echo $formHelper->row( $concertFormView->children['info2'] );
         echo $formHelper->row( $concertFormView->children['info3'] );

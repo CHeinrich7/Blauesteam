@@ -2,10 +2,22 @@ philharmonic_edit_group:
     path:   /in/group/edit
     defaults: { _controller: PhilharmonicFoyerServiceBundle:Group:edit }
 
+philharmonic_group:
+    path:   /in/group
+    defaults: { _controller: PhilharmonicFoyerServiceBundle:Group:index }
+
 philharmonic_edit_staff:
     path:   /in/staff/edit
     defaults: { _controller: PhilharmonicFoyerServiceBundle:Staff:edit }
 
+philharmonic_staff:
+    path:   /in/staff
+    defaults: { _controller: PhilharmonicFoyerServiceBundle:Staff:index }
+
 philharmonic_edit_concert:
     path:   /in/concert/edit
     defaults: { _controller: PhilharmonicFoyerServiceBundle:Concert:edit }
+
+philharmonic_concert:
+    path:   /in/concert
+    defaults: { _controller: PhilharmonicFoyerServiceBundle:Concert:index }
