@@ -68,9 +68,6 @@ class ConcertController extends Controller
 
         if($submitted) {
             if($form->isValid()) {
-
-                var_dump($concert);
-
                 $this->em->persist($concert);
                 $this->em->flush();
             }

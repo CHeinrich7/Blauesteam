@@ -4,13 +4,21 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
 use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use cmh\UserBundle\Entity\Role;
+use Symfony\Component\HttpKernel\Controller;
+use Symfony\Bundle\FrameworkBundle\Templating\Helper\ActionsHelper;
 /* @var $view           Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine  */
 /* @var $error          AuthenticationServiceException */
 /* @var $username       string */
 /* @var $authChecker    AuthorizationChecker */
+/* @var $actionsHelper  ActionsHelper */
+/* @var $slotsHelper    SlotsHelper */
+/* @var $routerHelper   RouterHelper */
 
-$slotsHelper = $view['slots'];   /* @var $slotsHelper SlotsHelper */
-$routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
+$slotsHelper = $view['slots'];
+$routerHelper = $view['router'];
+$actionsHelper = $view['actions'];
+
+$authChecker = $view['security'];
 
 ?>
 

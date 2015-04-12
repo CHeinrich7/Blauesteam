@@ -27,7 +27,7 @@ class Staff {
 
     /**
      * @Constraints\NotBlank()
-     * @ORM\Column(nullable = false)
+     * @ORM\Column(nullable = false, name="groups")
      * @ORM\ManyToOne(targetEntity="Group")
      * @ORM\JoinColumn(name="id")
      *

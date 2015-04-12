@@ -22,7 +22,7 @@ $formHelper = $view['form'];
 
     $widgetAttr = implode('"', $arrWidgetAttr);
 ?>
-<input <?php echo $widgetAttr; ?> type="checkbox" class="hidden cmh-checkbox" autocomplete="off" />
+<input <?php echo $widgetAttr; ?> type="checkbox" class="hidden cmh-checkbox" autocomplete="off" checked="<?php echo $checked ? 'checked' : ''; ?>" />
 <label for="<?php echo $id; ?>">
     <span class="glyphicon glyphicon-ok"></span>
 </label>

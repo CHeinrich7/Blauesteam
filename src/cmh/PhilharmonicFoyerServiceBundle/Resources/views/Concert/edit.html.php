@@ -15,7 +15,7 @@ $formHelper = $view['form'];
 
 $concertFormView = $concertForm->createView();
 
-$view->extend('::base.html.php');
+$view->extend('BackendBundle:Default:index.html.php');
 $formHelper->setTheme($concertFormView, ':Form/cmh');
 
 $inputAttr = array(

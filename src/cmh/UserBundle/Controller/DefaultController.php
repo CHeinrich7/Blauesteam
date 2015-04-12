@@ -66,4 +66,18 @@ class DefaultController extends Controller
         return $user;
     }
 
+    public function getUserAction()
+    {
+        return $this->getUser();
+    }
+
+    public function getAuthChecker()
+    {
+        return $this->get('security.authorization_checker');
+    }
+
+    public function getAuthCheckerAction()
+    {
+        return $this->getAuthChecker();
+    }
 }
