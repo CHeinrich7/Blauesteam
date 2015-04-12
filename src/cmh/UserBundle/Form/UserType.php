@@ -26,6 +26,7 @@ class UserType extends AbstractType
         $builder
             ->add('username',   'text',     array('label' => 'Username', 'attr' => $inputAttr))
             ->add('password',   'password', array('label' => 'Passwort', 'attr' => $inputAttr))
+            ->add('plainPassword', 'password', array('label' => 'neues Passwort', 'attr' => $inputAttr))
             ->add('save',       'submit',   array('label' => 'Einloggen', 'attr' => $buttonAttr))
         ;
     }

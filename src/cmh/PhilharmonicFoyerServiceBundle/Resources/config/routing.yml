@@ -1,22 +1,28 @@
 philharmonic_edit_group:
-    path:   /in/group/edit
-    defaults: { _controller: PhilharmonicFoyerServiceBundle:Group:edit }
+    path:   /in/group/edit/{id}
+    defaults: { _controller: PhilharmonicFoyerServiceBundle:Group:edit, id: -1 }
+    requirements:
+        id:  \d+
 
 philharmonic_group:
     path:   /in/group
     defaults: { _controller: PhilharmonicFoyerServiceBundle:Group:index }
 
 philharmonic_edit_staff:
-    path:   /in/staff/edit
-    defaults: { _controller: PhilharmonicFoyerServiceBundle:Staff:edit }
+    path:   /in/staff/edit/{id}
+    defaults: { _controller: PhilharmonicFoyerServiceBundle:Staff:edit, id: -1 }
+    requirements:
+        id:  \d+
 
 philharmonic_staff:
     path:   /in/staff
     defaults: { _controller: PhilharmonicFoyerServiceBundle:Staff:index }
 
 philharmonic_edit_concert:
-    path:   /in/concert/edit
-    defaults: { _controller: PhilharmonicFoyerServiceBundle:Concert:edit }
+    path:   /in/concert/edit/{id}
+    defaults: { _controller: PhilharmonicFoyerServiceBundle:Concert:edit, id: -1 }
+    requirements:
+        id:  \d+
 
 philharmonic_concert:
     path:   /in/concert

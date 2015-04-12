@@ -25,13 +25,13 @@ $formHelper->setTheme($profileFormView, ':Form/cmh');
         <?php
         echo $formHelper->start( $profileFormView );
 
-//        echo $formHelper->row( $profileFormView->children['firstname'] );
-//        echo $formHelper->row( $profileFormView->children['lastname'] );
+        echo $formHelper->row( $profileFormView->children['firstname'] );
+        echo $formHelper->row( $profileFormView->children['lastname'] );
         echo $formHelper->row( $profileFormView->children['email'] );
         echo $formHelper->row( $profileFormView->children['showMail'] );
         echo $formHelper->row( $profileFormView->children['number'] );
         echo $formHelper->row( $profileFormView->children['number2'] );
-        echo $formHelper->row( $profileFormView->children['image'] );
+//        echo $formHelper->row( $profileFormView->children['image'] );
 
         echo $formHelper->row( $profileFormView->children['save'] );
 

@@ -32,13 +32,12 @@ class ConcertType extends AbstractType
             ->add('groups', 'entity', array(
                 'class'     => 'cmh\PhilharmonicFoyerServiceBundle\Entity\Group',
                 'multiple'  => true,
-//                'expanded'  => true,
                 'attr'      => $inputAttr,
             ))
 
-            ->add('info1', 'text', array('label' => '1. Informationszeile', 'attr' => $inputAttr))
-            ->add('info2', 'text', array('label' => '2. Informationszeile', 'attr' => $inputAttr))
-            ->add('info3', 'text', array('label' => '3. Informationszeile', 'attr' => $inputAttr))
+            ->add('info1', 'text', array('label' => '1. Informationszeile', 'attr' => $inputAttr, 'required' => false))
+            ->add('info2', 'text', array('label' => '2. Informationszeile', 'attr' => $inputAttr, 'required' => false))
+            ->add('info3', 'text', array('label' => '3. Informationszeile', 'attr' => $inputAttr, 'required' => false))
 
             ->add('save', 'submit', array('label' => 'bla', 'attr' => $buttonAttr))
         ;

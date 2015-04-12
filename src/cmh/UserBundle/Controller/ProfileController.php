@@ -35,9 +35,9 @@ class ProfileController extends Controller
     private $formBuilder;
 
 
-    public function indexAction($name)
+    public function indexAction()
     {
-        return $this->render( self::INDEX_TEMPLATE, array('name' => $name));
+        return $this->render( self::INDEX_TEMPLATE );
     }
 
     /**
@@ -45,7 +45,7 @@ class ProfileController extends Controller
      *
      * @return Response|JsonResponse
      */
-    public function editAction(Request $request)
+    public function editAction(Request $request, $id)
     {
         $this->em = $this->get('doctrine.orm.default_entity_manager');
         $this->profileRepo = $this->em->getRepository('UserBundle:Profile');

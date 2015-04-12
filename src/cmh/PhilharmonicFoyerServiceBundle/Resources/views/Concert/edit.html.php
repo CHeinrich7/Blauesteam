@@ -2,20 +2,28 @@
 use Symfony\Component\Templating\Helper\SlotsHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Bundle\FrameworkBundle\Templating\Helper\ActionsHelper;
+use cmh\UserBundle\Entity\Role;
 
 /* @var $view Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine  */
 /* @var $formHelper     FormHelper  */
 /* @var $concertForm      Symfony\Component\Form\Form */
 /* @var $concertFormView  Symfony\Component\Form\FormView */
+/* @var $authChecker    AuthorizationChecker */
+/* @var $actionsHelper  ActionsHelper */
+/* @var $slotsHelper    SlotsHelper */
+/* @var $routerHelper   RouterHelper */
 
-
-$slotsHelper = $view['slots']; /* @var $slotsHelper SlotsHelper */
-$routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
-$formHelper = $view['form'];
+$slotsHelper    = $view['slots'];
+$routerHelper   = $view['router'];
+$actionsHelper  = $view['actions'];
+$authChecker    = $view['security'];
+$formHelper     = $view['form'];
 
 $concertFormView = $concertForm->createView();
 
-$view->extend('BackendBundle:Default:index.html.php');
+$view->extend('BackendBundle:Default:base.html.php');
 $formHelper->setTheme($concertFormView, ':Form/cmh');
 
 $inputAttr = array(
@@ -29,6 +37,23 @@ $groupAttr = array(
 $groupAttr['class-label'] = $groupAttr['class'] . ' text-center-important';
 
 ?>
+
+<?php $slotsHelper->start('title') ?>Veranstaltungen Edit<?php $slotsHelper->stop('title') ?>
+
+<?php $slotsHelper->start('headerTitle') ?>Veranstaltung bearbeiten<?php $slotsHelper->stop('headerTitle') ?>
+
+<?php $slotsHelper->start('headerMenu') ?>
+    <li><a href="#">Dienste</a></li>
+    <li><a href="#">Infos</a></li>
+    <li><a href="#">Forum</a></li>
+    <li><a href="#">Hile</a></li>
+<?php if($authChecker->isGranted(Role::ROLE_CHARGER)): ?>
+    <li class="divider"></li>
+    <li><a href="#">Gruppen</a></li>
+    <li><a href="#">Veranstalgungen</a></li>
+    <li><a href="#">User</a></li>
+<?php endif; ?>
+<?php $slotsHelper->stop('header') ?>
 
 <?php $slotsHelper->start('content') ?>
     <div class="container">
@@ -45,7 +70,7 @@ $groupAttr['class-label'] = $groupAttr['class'] . ' text-center-important';
             <?php echo $formHelper->label( $concertFormView->children['groups'] ); ?>
             <div class="col-sm-4 col-md-3">
                 <div class="alert alert-info">
-                    <p>Halten sie die <b>STRG</b>-Taste gedrückt um mehrere Gruppen auswählen zu können</p>
+                    <p>Halten Sie die <b>STRG</b>-Taste gedrückt um mehrere Gruppen auswählen zu können</p>
                 </div>
                 <?php echo $formHelper->widget( $concertFormView->children['groups'] ); ?>
             </div>

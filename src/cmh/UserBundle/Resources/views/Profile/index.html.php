@@ -2,30 +2,40 @@
 use Symfony\Component\Templating\Helper\SlotsHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
 use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use cmh\UserBundle\Entity\Role;
+use Symfony\Component\HttpKernel\Controller;
+use Symfony\Bundle\FrameworkBundle\Templating\Helper\ActionsHelper;
+/* @var $view           Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine  */
+/* @var $error          AuthenticationServiceException */
+/* @var $username       string */
+/* @var $authChecker    AuthorizationChecker */
+/* @var $actionsHelper  ActionsHelper */
+/* @var $slotsHelper    SlotsHelper */
+/* @var $routerHelper   RouterHelper */
 
-/* @var $error AuthenticationServiceException */
-/* @var $username string */
-/* @var $view Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine  */
-
-/* @var $userForm      Symfony\Component\Form\Form */
-/* @var $userFormView  Symfony\Component\Form\FormView */
-
-/* @var $profileForm      Symfony\Component\Form\Form */
-/* @var $profileFormView  Symfony\Component\Form\FormView */
-
-$slotsHelper = $view['slots']; /* @var $slotsHelper SlotsHelper */
-$routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
-$formHelper = $view['form']; /* @var $formHelper FormHelper */
-
-$userFormView = $userForm->createView();
-$profileFormView = $profileForm->createView();
-
-$view->extend('::base.html.php');
-$formHelper->setTheme($userFormView, ':Form/cmh');
+$slotsHelper    = $view['slots'];
+$routerHelper   = $view['router'];
+$actionsHelper  = $view['actions'];
+$authChecker    = $view['security'];
 
 ?>
 
-<?php
-    $formHelper->setTheme($userFormView, ':Form/cmh');
-?>
+<?php $view->extend('BackendBundle:Default:base.html.php') ?>
+
+<?php $slotsHelper->start('title') ?>UserArea<?php $slotsHelper->stop('title') ?>
+
+<?php $slotsHelper->start('headerTitle') ?>UserArea<?php $slotsHelper->stop('headerTitle') ?>
+
+<?php $slotsHelper->start('headerMenu') ?>
+    <li><a href="#">Dienste</a></li>
+    <li><a href="#">Infos</a></li>
+    <li><a href="#">Forum</a></li>
+    <li><a href="#">Hile</a></li>
+<?php if($authChecker->isGranted(Role::ROLE_CHARGER)): ?>
+    <li class="divider"></li>
+    <li><a href="#">Gruppen</a></li>
+    <li><a href="#">Veranstalgungen</a></li>
+    <li><a href="#">User</a></li>
+<?php endif; ?>
+<?php $slotsHelper->stop('header') ?>

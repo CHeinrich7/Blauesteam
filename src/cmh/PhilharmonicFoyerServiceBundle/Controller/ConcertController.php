@@ -39,21 +39,26 @@ class ConcertController extends Controller
 
     /**
      * @param Request $request
+     * @param integer $id
      *
      * @return Response|JsonResponse
      */
-    public function editAction(Request $request)
+    public function editAction(Request $request, $id)
     {
         $this->em = $this->get('doctrine.orm.default_entity_manager');
         $this->concertRepo = $this->em->getRepository('PhilharmonicFoyerServiceBundle:Concert');
 
-        $concert = new Concert();
+        if($id > 0) {
+            $concert = $this->concertRepo->find($id);
+        } else {
+            $concert = new Concert();
+        }
 
         $concert->setDate(new \DateTime());
 
         $form = $this->createForm(new ConcertType(), $concert, array(
             'method' => 'POST',
-            'action' => $this->generateUrl('philharmonic_edit_concert')
+            'action' => $this->generateUrl('philharmonic_edit_concert', array('id' => $concert->getId()))
         ));
 
         $form->handleRequest($request);

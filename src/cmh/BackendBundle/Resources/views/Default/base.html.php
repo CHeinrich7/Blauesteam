@@ -18,7 +18,7 @@ $routerHelper = $view['router']; /* @var $routerHelper RouterHelper */
 
 <?php $slotsHelper->start('header') ?>
     <h2 class="header-headline"><span class="glyphicon glyphicon-chevron-right"></span>&nbsp;<?php $slotsHelper->output('headerTitle', ''); ?></h2>
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right pull-right">
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 <h4><span class="glyphicon glyphicon-chevron-down"></span></h4>

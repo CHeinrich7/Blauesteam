@@ -14,11 +14,10 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\ActionsHelper;
 /* @var $slotsHelper    SlotsHelper */
 /* @var $routerHelper   RouterHelper */
 
-$slotsHelper = $view['slots'];
-$routerHelper = $view['router'];
-$actionsHelper = $view['actions'];
-
-$authChecker = $view['security'];
+$slotsHelper    = $view['slots'];
+$routerHelper   = $view['router'];
+$actionsHelper  = $view['actions'];
+$authChecker    = $view['security'];
 
 ?>
 

@@ -3,7 +3,6 @@ namespace cmh\PhilharmonicFoyerServiceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="cmh\PhilharmonicFoyerServiceBundle\Entity\Repository\ServicesRepository")
@@ -33,6 +32,16 @@ class Services
      * @var Staff
      **/
     protected $staff;
+
+    /**
+     * @Constraints\NotBlank()
+     * @ORM\Column(nullable = false, type="integer", name="first_staff")
+     * @ORM\OneToOne(targetEntity="Staff")
+     * @ORM\JoinColumn(name="id")
+     *
+     * @var Staff
+     **/
+    protected $firstStaff;
 
     /**
      * @ORM\Id
@@ -149,6 +158,25 @@ class Services
     public function getStaff ()
     {
         return $this->staff;
+    }
+
+    /**
+     * @param Staff $firstStaff
+     *
+     * @return Services
+     */
+    public function setFirstStaff ( $firstStaff )
+    {
+        $this->firstStaff = $firstStaff;
+        return $this;
+    }
+
+    /**
+     * @return Staff
+     */
+    public function getFirstStaff ()
+    {
+        return $this->firstStaff;
     }
 
 }

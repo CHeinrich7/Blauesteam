@@ -30,7 +30,7 @@ class Concert {
 
     /**
      * @var \datetime
-     * @ORM\Column(name="date", type="datetime")
+     * @ORM\Column(name="datum", type="date")
      */
     protected $date;
 
@@ -121,7 +121,7 @@ class Concert {
      */
     public function setServiceStart ( $serviceStart )
     {
-        $this->date = $serviceStart;
+        $this->serviceStart = $serviceStart;
         return $this;
     }
 
